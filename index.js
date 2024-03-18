@@ -6,12 +6,15 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "Book",
-  password: "Utkarsh1214@",
-  port: 5432,
+const { Pool } = pg;
+
+const connectionString = "postgres://book_gm17_user:rQa4JhmMZ1wrDbyrbUN8gw0Lqr3QXvoU@dpg-cnrhv5en7f5s738cgk1g-a.singapore-postgres.render.com/book_gm17";//you can create your postgreSQL server on render.com or Vercel and then they'll give u external URL copy that and paste it here
+
+const db = new Pool({
+  connectionString: connectionString, //your External Database URL,you'll find it inside the onrender postgres server dashboard 
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 db.connect();
