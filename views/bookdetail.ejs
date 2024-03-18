@@ -1,0 +1,67 @@
+<%- include("partials/header.ejs") -%>
+
+<div class="addheader">
+  <div class="text">Book Notes</div>
+  <a href="/#">Home</a>
+</div>
+
+<div class="detail-page">
+  <div class="detail-img">
+    <img src="https://covers.openlibrary.org/b/id/<%= book.coverid %>-L.jpg" />
+  </div>
+
+  <div class="detail-books">
+    <p class="title"><span class="t">Title - </span><%= book.bookname %></p>
+    <p class="author"><span class="a">Author - </span><%= book.author %></p>
+    <p class="cont">
+      <span class="c">Your Learnings - <br /> </span><%= bookReview.review %>
+    </p>
+
+    <div class="btn-delete">
+      <form action="/delete-book" method="post">
+        <input type="hidden" name="id" value="<%= book.id %>" />
+        <!-- to get id of specific book inorder to delete-->
+        <input
+          type="submit"
+          name="delete"
+          value="Remove Book"
+          class="delete-btn"
+        />
+      </form>
+
+      <input
+        type="submit"
+        name="edit"
+        value="Edit"
+        id="editButton"
+        class="edit-btn"
+      />
+    </div>
+
+    <div class="update">
+      <form
+        action="/update-learnings"
+        method="post"
+        id="editForm"
+        style="display: none"
+      >
+        <textarea name="updatedReview" class="update-text">
+<%= bookReview.review %></textarea
+        >
+        <input type="hidden" name="id" value="<%= book.id %>" />
+        <div class="ub">
+          <input type="submit" value="Update Learnings" class="update-btn" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- JS to show text area only when edit button is clicked -->
+<script>
+  document.getElementById("editButton").addEventListener("click", function () {
+    document.getElementById("editForm").style.display = "block";
+  });
+</script>
+
+<%- include("partials/footer.ejs") -%>
