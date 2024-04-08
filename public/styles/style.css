@@ -3,6 +3,38 @@
   margin: 0;
 }
 
+.addheadermain{
+  height: 48px;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  
+  opacity: 0.6;
+  padding: 0 48px 0 48px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 848px;
+}
+
+.addheadermain a {
+  width: 208px;
+  color: white;
+  font-size: 24px;
+  opacity: 100%;
+  text-decoration: none;
+}
+
+.account-btn {
+  height: 48px;
+  width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+}
+
 .main {
   height: 100vh;
   width: 100%;
@@ -138,11 +170,13 @@
   background-color: #dbd8e3;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
+  text-decoration: none;
 }
 
 #btn-mb:active {
   box-shadow: none;
   transform: translateY(0);
+  text-decoration: none;
 }
 
 .hbt {
@@ -453,6 +487,7 @@ label{
   border-radius: 8px;
   background-color: #352F44;
   color: #dbd8e3;
+  font-size: 16px;
 }
 
 .error {
@@ -498,7 +533,7 @@ label{
   color:#2A2438;
 }
 
-.a {
+.anchor {
   color: #352F44;
   font-weight: bold;
 }
@@ -615,4 +650,45 @@ label{
   border-radius: 8px;
   font-size: 16px;
   font-family: "Poppins"
+}
+
+.act {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.act h1 {
+  margin-bottom: 48px;
+}
+
+.row {
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 48px;
+}
+
+.lbl {
+  width:96px;
+  margin-bottom: 16px;
+}
+
+.btn-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: inline;
+  gap:8px;
+}
+
+.divert {
+  margin-top: 24px;
+  font-size: 18px;
+  
+}
+
+.divert a {
+  text-decoration: none;
 }

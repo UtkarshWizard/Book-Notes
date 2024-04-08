@@ -1,17 +1,24 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
-import axios from "axios";
+import bcrypt, { hash } from "bcrypt";
+import passport from "passport";
+import { Strategy } from "passport-local";
+import GoogleStrategy from "passport-google-oauth2";
+import session from "express-session";
+import env from "dotenv";
 
 const app = express();
 const port = 3000;
+const saltRounds = 10;
+env.config();
 
 const { Pool } = pg;
 
-const connectionString = "postgres://dbbook_4zvm_user:1jDyf0uBrR6k25jMuwOTFkkJjx9QzMLC@dpg-cns6fta0si5c73c2f5pg-a.singapore-postgres.render.com/dbbook_4zvm";//you can create your postgreSQL server on render.com or Vercel and then they'll give u external URL copy that and paste it here
+const connectionString = process.env.DB_URL; //you can create your postgreSQL server on render.com or Vercel and then they'll give u external URL copy that and paste it here
 
 const db = new Pool({
-  connectionString: connectionString, //your External Database URL,you'll find it inside the onrender postgres server dashboard 
+  connectionString: connectionString, //your External Database URL,you'll find it inside the onrender postgres server dashboard
   ssl: {
     rejectUnauthorized: false,
   },
@@ -21,48 +28,151 @@ db.connect();
 
 const url = "https://openlibrary.org/search.json";
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie : {
+      maxAge: 1000 * 60 * 60 * 24
+    }
+  })
+);
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Route to render the home page.
 app.get("/", async (req, res) => {
-  try {
-    let sortBy = req.query.sort   //Default sorting by name
-    console.log(sortBy);
-    let query;
-    
-    if (sortBy === "recent") {
-      query = "SELECT * FROM book ORDER BY id DESC";
-    } else if (sortBy === "name") {
-      query = "SELECT * FROM book ORDER BY bookname ASC"
-    } 
-    else {
-      query = "SELECT * FROM book";  
+  if (req.isAuthenticated()) {
+    try {
+      const checkemail = await db.query("SELECT * FROM book WHERE email = $1", [
+        req.user.email
+      ]);
+
+      if (checkemail.rows.length > 0) {
+        let sortBy = req.query.sort; //Default sorting by name
+        //console.log(sortBy);
+        const email = req.user.email;
+        //console.log(email);
+        let query;
+
+        if (sortBy === "recent") {
+          (query = `SELECT * FROM book WHERE email = $1 ORDER BY id DESC`,
+            [email]);
+        } else if (sortBy === "name") {
+          (query = "SELECT * FROM book WHERE email = $1 ORDER BY bookname ASC",[email]);
+            
+        } else {
+          (query = "SELECT * FROM book WHERE email = $1", [email]);
+        }
+        const result = await db.query(query,[email]);
+        const data = result.rows;
+        //console.log(data);
+        res.render("index.ejs", { data });
+      } else {
+        res.render("add.ejs");
+      }
+    } catch (error) {
+      res.status(404).send(error.message);
     }
-    const result = await db.query(query);
-    const data = result.rows;
-    console.log(data);
-    res.render("index.ejs", { data });
-  } catch (error) {
-    res.status(404).send(error.message);
+  } else {
+    res.redirect("/register");
   }
 });
+
+app.get("/register", async (req, res) => {
+  res.render("register.ejs");
+});
+
+app.get("/login", async (req, res) => {
+  res.render("login.ejs");
+});
+
+app.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
+app.post("/register", async (req, res) => {
+  const email = req.body.username;
+  const password = req.body.password;
+
+  try {
+    const checkresult = await db.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+
+    if (checkresult.rows.length > 0) {
+      res.redirect("/login");
+    } else {
+      bcrypt.hash(password, saltRounds, async (err, hash) => {
+        if (err) {
+          console.log("Error Hashing password:", err);
+        } else {
+          const result = await db.query(
+            "INSERT INTO users (email,password) VALUES ($1, $2) RETURNING * ",
+            [email, hash]
+          );
+          const user = result.rows[0];
+          req.login(user, (err) => {
+            res.redirect("/");
+          });
+        }
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/login",
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+    })
+  );
 
 //Route to render the Add Book page.
 app.get("/add", async (req, res) => {
   res.render("add.ejs");
 });
 
+app.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
+
+app.get(
+  "/auth/google/add",
+  passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);
+
 //Route to Handle search bar operations on add book page.
 app.post("/search-book", async (req, res) => {
-  const searchBook = req.body.searchbar;
-  let Errmessage = "";
+
+  if (req.isAuthenticated) {
+
+    const searchBook = req.body.searchbar;
+    let Errmessage = "";
 
   try {
     const { bookTitle, bookAuthor, coverId } = await fetchData(searchBook);
-    console.log("Searched Book: ", bookTitle);
-    console.log("Cover Id: ", coverId); //Displays information of book and fetch it from api.
-    console.log("Book Author: ", bookAuthor);
+    //console.log("Searched Book: ", bookTitle);
+    //console.log("Cover Id: ", coverId); //Displays information of book and fetch it from api.
+    //console.log("Book Author: ", bookAuthor);
 
     //function to fetch data from api.
     async function fetchData(searchBook) {
@@ -79,7 +189,7 @@ app.post("/search-book", async (req, res) => {
           book.author_name ? book.author_name[0] : "Unknown"
         );
         const coverId = result.map((book) => book.cover_i);
-        console.log(coverId);
+        //console.log(coverId);
         return {
           bookTitle: bookTitle,
           bookAuthor: bookAuthor,
@@ -95,24 +205,24 @@ app.post("/search-book", async (req, res) => {
     try {
       const bookTitleValue = bookTitle[0];
       if (bookTitleValue) {
-      const BookCheck = await db.query(
-        "SELECT * FROM book WHERE bookname = $1",
-        [bookTitleValue]
-      );
-      if (BookCheck.rows.length > 0) {
-        Errmessage = "This Book Has Already Been Added";
-      } else {
-        const bookAuthorValue = bookAuthor[0];
-        const coverIdValue = coverId[0]; //The Value of coverId was returning a string array so we took only 1st value.
-        await db.query(
-          "INSERT INTO book (bookname,author,coverid) VALUES ($1,$2,$3)",
-          [bookTitleValue, bookAuthorValue, coverIdValue]
+        const BookCheck = await db.query(
+          "SELECT * FROM book WHERE bookname = $1 AND email = $2",
+          [bookTitleValue,req.user.email]
         );
+        if (BookCheck.rows.length > 0) {
+          Errmessage = "This Book Has Already Been Added";
+        } else {
+          const bookAuthorValue = bookAuthor[0];
+          const coverIdValue = coverId[0]; //The Value of coverId was returning a string array so we took only 1st value.
+          await db.query(
+            "INSERT INTO book (bookname,author,coverid,email) VALUES ($1,$2,$3,$4)",
+            [bookTitleValue, bookAuthorValue, coverIdValue, req.user.email]
+          );
+        }
+      } else {
+        Errmessage = "No Book Title Found";
       }
-    } else {
-      Errmessage = "No Book Title Found";
-    } 
-  } catch (error) {
+    } catch (error) {
       console.error("Error checking existence in the database:", error);
       res.status(500).send("Internal Server Error");
     }
@@ -124,10 +234,13 @@ app.post("/search-book", async (req, res) => {
       showAdditionalInput: true,
       Errmessage,
     });
-
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
+  } else {
+    res.redirect("/")
+  }
+  
 });
 
 //Route to add the data from add book page to home page by clicking button.
@@ -142,7 +255,7 @@ app.post("/addbook", async (req, res) => {
         "INSERT INTO book_review (book_id, review) VALUES ((SELECT MAX(id) FROM book), $1)",
         [BookReview]
       );
-      
+
       res.redirect("/");
     } else {
       Errmessage = "Oops! You Forgot to Write Your Learnings.";
@@ -155,26 +268,31 @@ app.post("/addbook", async (req, res) => {
 });
 
 // To display details of the book when specific book is selected.
-app.get ("/bookdetail/:id", async(req,res) => {
+app.get("/bookdetail/:id", async (req, res) => {
   try {
     const CurrentBookId = req.params.id;
 
-    const bookResult = await db.query ("SELECT * FROM book WHERE id = $1", [CurrentBookId]);
+    const bookResult = await db.query("SELECT * FROM book WHERE id = $1", [
+      CurrentBookId,
+    ]);
     const book = bookResult.rows[0];
 
-    const reviewResult = await db.query ("Select * FROM book_review WHERE book_id = $1", [CurrentBookId]);
+    const reviewResult = await db.query(
+      "Select * FROM book_review WHERE book_id = $1",
+      [CurrentBookId]
+    );
     const bookReview = reviewResult.rows[0];
 
-    res.render ("bookdetail.ejs", {book , bookReview});
+    res.render("bookdetail.ejs", { book, bookReview });
   } catch (error) {
     console.error("Error fetching book details:", error);
     res.status(500).send("Internal Server Error");
-  };
+  }
 });
 
 //To delete book and review from database
 app.post("/delete-book", async (req, res) => {
-  const id = req.body.id; 
+  const id = req.body.id;
   console.log(id);
   try {
     await db.query("DELETE FROM book_review WHERE book_id = $1", [id]);
@@ -192,7 +310,10 @@ app.post("/update-learnings", async (req, res) => {
   const updatedReview = req.body.updatedReview;
 
   try {
-    await db.query("UPDATE book_review SET review = $1 WHERE book_id = $2", [updatedReview, id]);
+    await db.query("UPDATE book_review SET review = $1 WHERE book_id = $2", [
+      updatedReview,
+      id,
+    ]);
     res.redirect(`/bookdetail/${id}`); // Redirect to the same book detail page after updating
   } catch (error) {
     console.error("Error updating learnings:", error);
@@ -200,6 +321,68 @@ app.post("/update-learnings", async (req, res) => {
   }
 });
 
+passport.use(
+  "local",
+  new Strategy(async function verify(username, password, cb) {
+    try {
+      const result = await db.query("SELECT * FROM users WHERE email = $1", [
+        username,
+      ]);
+
+      if (result.rows.length > 0) {
+        const user = result.rows[0];
+        const storedHashedPassword = user.password;
+        bcrypt.compare(password, storedHashedPassword, (err, valid) => {
+          if (err) {
+            console.error("Error comparing Passwords:", err);
+          } else {
+            if (valid) {
+              return cb(null, user);
+            } else {
+              return cb(null, false);
+            }
+          }
+        });
+      } else {
+        return cb("User not found");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  })
+);
+
+passport.use("google", new GoogleStrategy(
+  {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/add",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+  },
+  async (accessToken, refreshToken , profile, cb) => {
+    try {
+      console.log(profile);
+      const result = await db.query("SELECT * FROM users WHERE email = $1",[profile.email]);
+
+      if (result.rows.length === 0) {
+        const newUser = await db.query("INSERT INTO users (email,password) VALUES ($1,$2)",[profile.email,"google"]);
+        return cb(null, newUser.rows[0]);
+      } else {
+        return cb(null, result.rows[0]);
+      }
+    } catch (err) {
+      return cb(err)
+    };
+  }
+))
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
