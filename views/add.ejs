@@ -9,10 +9,10 @@
 <div class="addbook">
   <h2 class="addtext">Add New Book</h2>
 
+  <% if (locals.Errmessage) {%>
+  <p class="error"><%= Errmessage %></p>
+  <%} else {%> <%if (locals.title && locals.author && locals.cover){%>
   <form action="/addbook" method="post" id="bookForm">
-    <% if (locals.Errmessage) {%>
-    <p class="error"><%= Errmessage %></p>
-    <%} else {%> <%if (locals.title && locals.author && locals.cover){%>
     <div class="add-contents" id="bookDetailsSection">
       <div class="add-img">
         <img src="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg" />
