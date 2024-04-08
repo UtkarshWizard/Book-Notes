@@ -7,13 +7,36 @@
 </div>
 
 
+<div class="addbook">
+  <h2 class="addtext">Add New Book</h2>
 
-  <form action="/addbook" method="post">
+  <div class="addsearch" id="searchSection">
+    <form action="/search-book" method="post" id="searchForm">
+      <input type="text" name="searchbar" required id="search" autocomplete="off"/>
+      <label>
+        <input type="Submit" id="searchButton" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48px"
+          height="48px"
+          fill="currentColor"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+          />
+        </svg>
+      </label>
+    </form>
+  </div>
+
+  <form action="/addbook" method="post"  id="bookForm">
     <% if (locals.Errmessage) {%>
     <p class="error"><%= Errmessage %></p>
     <%} else {%>
 
-    <div class="add-contents">
+    <div class="add-contents" id="bookDetailsSection">
       <%if (locals.title && locals.author && locals.cover){%>
       <div class="add-img">
         <img src="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg" />
@@ -36,32 +59,20 @@
         <button id="btn">Add</button>
       </div>
 
-      <%} else { %>
-        <div class="addbook">
-  <h2 class="addtext">Add New Book</h2>
-
-  <div class="addsearch">
-    <form action="/search-book" method="post" id="searchForm">
-      <input type="text" name="searchbar" required id="search" autocomplete="off"/>
-      <label>
-        <input type="Submit" id="searchButton" />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="48px"
-          height="48px"
-          fill="currentColor"
-          class="bi bi-search"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-          />
-        </svg>
-      </label>
-    </form>
-  </div>
       <%}%> <% } %>
     </div>
   </form>
 </div>
+
+<script>
+  document.getElementById('bookForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Hide the search section
+    document.getElementById('searchSection').style.display = 'none';
+
+    // Show the book details section
+    document.getElementById('bookDetailsSection').style.display = 'block';
+  });
+</script>
 <%- include("partials/footer.ejs") -%>
