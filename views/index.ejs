@@ -1,18 +1,17 @@
 <%- include("partials/header.ejs") -%>
 
 <div class="main">
-
   <div class="box"></div>
 
   <div class="addheadermain">
-    <div class="text">Book Notes</div>
-    <div class="account-btn">
-      <a href="/Login" role="button">Login</a>
-      <a href="/register">Sign In</a>
-      <a href="/logout">Log Out</a>
+    <div class="text"><p id="logo">Book Notes</p></div>
+        <div class="account-btn">
+        <a href="/register" id="small-screen-btn">Account</a>
+        <a href="/Login" class="bt-large">Login</a>
+        <a href="/register" class="bt-large">Sign In</a>
+        <a href="/logout">Log Out</a>
+      </div>
     </div>
-    
-  </div>
 
   <!-- Black Cover for image -->
   <div class="hero-section">
@@ -34,7 +33,7 @@
             width="24"
             height="24"
             fill="currentColor"
-            class="bi bi-plus-circle"
+            class="bi bi-plus-circle circle"
             viewBox="0 0 16 16"
           >
             <path
@@ -56,7 +55,7 @@
             width="24"
             height="24"
             fill="currentColor"
-            class="bi bi-arrow-down-circle"
+            class="bi bi-arrow-down-circle arrow"
             viewBox="0 0 16 16"
           >
             <path
@@ -135,6 +134,17 @@
       }
     }
   };
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const menuBtn = document.getElementById("menuBtn");
+  const dropdownMenu = document.getElementById("dropdownMenu");
+
+  menuBtn.addEventListener("click", function () {
+    dropdownMenu.classList.toggle("show");
+  });
+});
+
 </script>
 
 <%- include("partials/footer.ejs") -%>

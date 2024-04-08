@@ -3,12 +3,12 @@
   margin: 0;
 }
 
-.addheadermain{
+.addheadermain {
   height: 48px;
   background-color: black;
   color: white;
   font-size: 24px;
-  
+
   opacity: 0.6;
   padding: 0 48px 0 48px;
   display: flex;
@@ -32,11 +32,10 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-
 }
 
 .main {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-image: url("./herobg.jpg");
   background-repeat: no-repeat;
@@ -47,7 +46,7 @@
 
 /* Dummy Box to cover opcaity of image in hero section */
 .box {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
@@ -74,6 +73,7 @@
   border-bottom: solid 2px #dbd8e3;
   padding: 0 16px 0 16px;
   margin-bottom: 48px;
+  margin-top:48px ;
   word-spacing: 10px;
 }
 
@@ -93,12 +93,12 @@
   border: 2px solid #ffffff;
   border-radius: 15px;
   box-sizing: border-box;
-  color: #2A2438;
+  color: #2a2438;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family:  "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: normal;
@@ -113,7 +113,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  
+
   will-change: transform;
 }
 
@@ -157,7 +157,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  
+
   will-change: transform;
 }
 
@@ -166,7 +166,7 @@
 }
 
 #btn-mb:hover {
-  color: #2A2438;
+  color: #2a2438;
   background-color: #dbd8e3;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
@@ -186,10 +186,11 @@
   gap: 150px;
   justify-content: center;
   margin-top: 50px;
+  margin-bottom: 48px;
 }
 
 /* Null class assigned to a tag to remove properties */
-.null{
+.null {
   text-decoration: none;
 }
 
@@ -204,16 +205,16 @@
 }
 
 .div_class {
-  min-height:300px;
+  min-height: 300px;
   max-width: 190px;
-  width: 75vw;  
-  margin:  48px 48px 48px 48px;
-  color:white;
-  font-size: 50px; 
+  width: 75vw;
+  margin: 48px 48px 48px 48px;
+  color: white;
+  font-size: 50px;
 }
 
 .img {
-  max-height:280px;
+  max-height: 280px;
   max-width: 200px;
   position: absolute;
 }
@@ -221,11 +222,11 @@
 .sec-btn {
   height: 48px;
   width: 100%;
-  
-  display: flex;  
+
+  display: flex;
   justify-content: space-between;
-  align-items: center;  
-  margin:24px 96px;
+  align-items: center;
+  margin: 24px 96px;
 }
 
 .container {
@@ -236,7 +237,7 @@
 }
 
 .sec-btn h3 {
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 32px;
   margin: 0 auto; /* Center the h3 element horizontally */
 }
@@ -250,18 +251,16 @@
 }
 
 .drop-btn {
-  
   display: flex;
   align-items: center;
 }
 
 .dropdown {
-  
   position: relative;
-  
 }
 
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover,
+.dropbtn:focus {
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-1.5px);
 }
@@ -271,13 +270,13 @@
   position: absolute;
   background-color: #dbd8e3;
   min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
   z-index: 1;
   right: 0; /* Position the dropdown at the right end */
 }
 
 .dropdown-content a {
-  color: #2A2438;
+  color: #2a2438;
   font-size: 16px;
   padding: 12px 16px;
   text-decoration: none;
@@ -285,26 +284,29 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #e6eaf0;
-  ;}
+.dropdown-content a:hover {
+  background-color: #e6eaf0;
+}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
+.show {
+  display: block;
+}
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #352F44;
+  background-color: #352f44;
 }
 
 .foot-txt {
-  color:#f8f6f4;
-  margin: 24px 24px 24px 48px; 
+  color: #f8f6f4;
+  margin: 24px 24px 24px 48px;
   line-height: 24px;
 }
 
-.foot-btn{
+.foot-btn {
   height: 100%;
   width: 200px;
   margin: 0 48px 0 24px;
@@ -312,28 +314,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color:#f8f6f4
+  color: #f8f6f4;
 }
 
 .footer button {
   height: 22px;
-  width:22px;
+  width: 22px;
   background: none;
   border: none;
   color: #f8f6f4;
 }
 
 .container h3 {
-  color: #352F44;
+  color: #352f44;
   font-family: "poppins";
 }
 
 /* Add book page style */
 
-.addheader{
+.addheader {
   height: 48px;
   width: 100%;
-  background-color: #352F44;
+  background-color: #352f44;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -341,7 +343,7 @@
 
 .addheader .text {
   color: #f8f6f4;
-  font-family:"Poppins", sans-serif ;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   padding-left: 48px;
 }
@@ -351,41 +353,40 @@
   color: #e6eaf0;
   font-size: 20px;
   padding-right: 48px;
-  font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
-  
+  font-family: "Franklin Gothic", "Arial Narrow", Arial, sans-serif;
 }
 
-.addbook{
+.addbook {
   background-color: #dbd8e3;
   min-height: 100vh;
   height: 100%;
   width: 100%;
 }
 
-.addtext{
-  font-family: "Poppins", sans-serif ;
+.addtext {
+  font-family: "Poppins", sans-serif;
   text-align: center;
   padding-top: 48px;
   font-size: 48px;
-  color: #352F44;
+  color: #352f44;
   text-decoration: underline;
 }
 
-.addsearch{
+.addsearch {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 24px;
 }
 
-#search{
+#search {
   height: 48px;
   width: 480px;
   border-radius: 24px;
   background-color: #f9f7ff;
   outline: 0;
   padding: 0px 16px 0 16px;
-  color: #352F44;
+  color: #352f44;
   font-size: 20px;
 }
 
@@ -403,10 +404,10 @@ form#searchForm input[type="submit"] {
 .bi-search {
   height: 24px;
   width: 24px;
-  color: #352F44;
+  color: #352f44;
 }
 
-label{
+label {
   height: 48px;
   width: 48px;
   display: flex;
@@ -414,16 +415,16 @@ label{
   justify-content: center;
   background-color: #f9f7ff;
   border-radius: 100px;
-  border: 2px solid #352F44;
+  border: 2px solid #352f44;
 }
 
-.add-contents{
-  display:flex;
+.add-contents {
+  display: flex;
   justify-content: center;
   gap: 24px;
 }
 
-.add-img{
+.add-img {
   padding: 48px 24px 24px 104px;
   width: fit-content;
 }
@@ -431,10 +432,10 @@ label{
   height: 400px;
 }
 
-.add-book-details{
+.add-book-details {
   display: flex;
   flex-direction: column;
-  padding-top:48px;
+  padding-top: 48px;
   font-family: "Poppins", sans-serif;
   font-size: 24px;
 }
@@ -443,21 +444,21 @@ label{
   margin-bottom: 8px;
 }
 
-.abd1{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+.abd1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: bold;
-  color: #352F44;
+  color: #352f44;
 }
 
-.abd2{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+.abd2 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: bold;
-  color: #352F44;
+  color: #352f44;
   font-size: 18px;
 }
 
 .abdc1 {
-  color: #070F2B;
+  color: #070f2b;
 }
 
 .abdc2 {
@@ -466,13 +467,13 @@ label{
 }
 
 .enterlearnings {
-  color: #352F44;
+  color: #352f44;
 }
 
 .learningtext {
   height: 248px;
   width: 560px;
-  background-color:#f9f7ff;
+  background-color: #f9f7ff;
   border-radius: 8px;
   outline: 0;
   padding: 16px;
@@ -483,9 +484,9 @@ label{
 #btn {
   height: 32px;
   width: 64px;
-  margin: 8px 0 24px 0 ;
+  margin: 8px 0 24px 0;
   border-radius: 8px;
-  background-color: #352F44;
+  background-color: #352f44;
   color: #dbd8e3;
   font-size: 16px;
 }
@@ -493,7 +494,7 @@ label{
 .error {
   color: red;
   font-size: 48px;
-  font-family:'Times New Roman', Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   text-align: center;
   padding-top: 48px;
 }
@@ -521,24 +522,24 @@ label{
   padding-right: 48px;
 }
 
-.t{
-  color: #352F44;
+.t {
+  color: #352f44;
   font-weight: bold;
 }
 
 .detail-books .title {
   padding: 48px 0 8px;
   font-size: 32px;
-  font-family: 'Times New Roman', Times, serif;  
-  color:#2A2438;
+  font-family: "Times New Roman", Times, serif;
+  color: #2a2438;
 }
 
 .anchor {
-  color: #352F44;
+  color: #352f44;
   font-weight: bold;
 }
 
-.detail-books .author{
+.detail-books .author {
   padding-bottom: 8px;
   font-size: 24px;
   color: #393939;
@@ -552,7 +553,7 @@ label{
 }
 
 .c {
-  color: #352F44;
+  color: #352f44;
   font-weight: bold;
   font-size: 32px;
 }
@@ -563,12 +564,12 @@ label{
   border: 2px solid #000000;
   border-radius: 50px;
   box-sizing: border-box;
-  color: #352F44;
+  color: #352f44;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family:  "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: normal;
@@ -590,7 +591,7 @@ label{
 
 .edit-btn {
   appearance: none;
-  background-color: #352F44;
+  background-color: #352f44;
   border-radius: 50px;
   box-sizing: border-box;
   color: #f8f6f4;
@@ -614,7 +615,7 @@ label{
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  
+
   will-change: transform;
 }
 
@@ -632,7 +633,7 @@ label{
   border-radius: 4px;
   padding: 16px;
   font-size: 16px;
-  font-family:"Poppins", sans-serif ;
+  font-family: "Poppins", sans-serif;
   background-color: #f9f7ff;
 }
 
@@ -642,14 +643,14 @@ label{
 
 .update-btn {
   padding: 16px;
-  background-color: #352F44;
+  background-color: #352f44;
   color: #f8f6f4;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   font-size: 16px;
-  font-family: "Poppins"
+  font-family: "Poppins";
 }
 
 .act {
@@ -671,7 +672,7 @@ label{
 }
 
 .lbl {
-  width:96px;
+  width: 96px;
   margin-bottom: 16px;
 }
 
@@ -680,15 +681,601 @@ label{
   flex-direction: column;
   align-items: center;
   text-align: inline;
-  gap:8px;
+  gap: 8px;
 }
 
 .divert {
   margin-top: 24px;
   font-size: 18px;
-  
 }
 
 .divert a {
   text-decoration: none;
+}
+
+#small-screen-btn {
+  display: none;
+}
+
+@media (max-width: 1392px) {
+  .text {
+    height: 48px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    text-align: justify;
+  }
+  #logo {
+    margin: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .addheadermain {
+    gap: 748px;
+  }
+
+  .text {
+    height: 48px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  #logo {
+    width: 160px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1280px) {
+  .addheadermain {
+    gap: 648px;
+  }
+
+  .text {
+    height: 48px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  #logo {
+    width: 160px;
+    margin: 0;
+  }
+
+  .heading-1 {
+    font-size: 3.5rem;
+  }
+
+  .subheading {
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .hbt {
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+
+  .detail-img img{
+    height: 300px;
+    width: 200px;
+  }
+
+  .detail-books .title{
+    font-size: 24px;
+  }
+
+  .detail-books .author{
+    font-size: 18px;
+  }
+
+  .c {
+    font-size: 24px;
+  }
+
+  .detail-books .cont{
+    font-size: 16px;
+  }
+
+  .detail-books {
+    width:480px;
+  }
+
+  .update-text {
+    width:480px
+  }
+
+  .update{
+    width:480px
+  }
+}
+
+@media (min-width: 1060px) {
+  .addheadermain {
+    gap: 448px;
+  }
+}
+
+@media (max-width: 1060px) {
+  .addheadermain {
+    gap: 248px;
+  }
+
+  .addheadermain a {
+    font-size: 18px;
+  }
+
+  #btn-add {
+    font-size: 16px;
+    min-height: 48px;
+    min-width: 0;
+  }
+
+  #btn-mb {
+    font-size: 16px;
+    min-height: 48px;
+    min-width: 0;
+  }
+
+  .addtext {
+    font-size: 24px;
+  }
+
+  .add-img {
+    padding-left: 24px;
+  }
+
+  .add-img img {
+    height: 230px;
+  }
+
+  .add-book-details {
+    font-size: 16px;
+  }
+
+  .learningtext {
+    font-size: 12px;
+    height: 158px;
+    width:360px;
+  }
+}
+
+@media (max-width: 975px) {
+  #btn-add {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  #btn-mb {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  .hbt{
+    gap: 80px;
+    margin-bottom: 32px;
+  } 
+
+  .circle {
+    height: 16px;
+    width: 16px;
+  }
+
+  .arrow {
+    height: 16px;
+    width: 16px;
+  }
+
+  .heading-1 {
+    font-size: 2.5rem;
+    line-height: 90px;
+    border-bottom: solid 2px #dbd8e3;
+    padding: 0 16px 0 16px;
+    margin-bottom: 24px;
+    word-spacing: 10px;
+  }
+
+  .subheading {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+    line-height: 24px;
+    word-spacing: 8px;
+    margin-bottom: 48px;
+  }
+
+  .delete-btn {
+    font-size: 12px;
+  }
+
+  .edit-btn {
+    font-size: 12px;
+  }
+
+  .update-btn {
+    font-size: 12px;
+  }
+
+  .update-text {
+    width:400px
+  }
+
+  .update{
+    width:400px
+  }
+}
+
+@media (max-width: 780px) {
+  .addheadermain {
+    gap: 48px;
+  }
+
+  .addheadermain a {
+    width:72px
+  }
+
+  .account-btn {
+    gap: 4px;
+  }
+
+  .hbt{
+    gap: 64px;
+    margin-bottom: 32px;
+  } 
+}
+
+@media (max-width: 720px) {
+  .heading-1 {
+    font-size: 32px;
+    line-height: 90px;
+    border-bottom: solid 2px #dbd8e3;
+    padding: 0 16px 0 16px;
+    margin-bottom: 24px;
+    word-spacing: 10px;
+  }
+
+  .subheading {
+    font-size: 10px;
+    margin-bottom: 16px;
+    line-height: 24px;
+    word-spacing: 4px;
+    margin-bottom: 48px;
+  }
+
+  #btn-add {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  #btn-mb {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  .hbt {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .detail-books {
+    width:400px;
+  }
+
+  .update{
+    width:320px
+  }
+
+  .update-text {
+    width:320px;
+    font-size: 10px;
+  }
+
+}
+
+@media (max-width: 670px) {
+  .sec-btn h3 {
+    font-size: 20px;
+  }
+
+  .hbt {
+    margin-bottom: 32px;
+  }
+
+  .detail-books {
+    width:320px;
+  }
+
+  .btn-delete {
+    flex-direction: column;
+  }
+
+  .update{
+    width:240px;
+    height: 200px;
+  }
+
+  .update-text {
+    width:240px;
+    font-size: 10px;
+  }
+
+  .detail-books{
+    height: 1040px;
+  }
+
+  .addtext {
+    font-size: 24px;
+  }
+
+  .add-img {
+    padding-left: 24px;
+  }
+
+  .add-img img {
+    height: 120px;
+  }
+
+  .add-book-details {
+    font-size: 12px;
+  }
+
+  .abd2 {
+    font-size: 8px;
+  }
+
+  .abdc2{
+    font-size: 8px;
+  }
+
+  .learningtext {
+    font-size: 12px;
+    height: 108px;
+    width: 200px;
+  }
+
+  #btn {
+    font-size: 12px;
+    width:54px;
+  }
+
+  .error {
+    font-size: 24px;
+  }
+}
+
+@media (max-width:550px) {
+  .heading-1 {
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: solid 2px #dbd8e3;
+    padding: 0 16px 0 16px;
+    margin-bottom: 24px;
+    word-spacing: 10px;
+  }
+
+  .subheading {
+    font-size: 10px;
+    margin-bottom: 16px;
+    word-spacing: 2px;
+    line-height: 24px;
+    margin-bottom: 48px;
+  }
+
+  #btn-add {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  #btn-mb {
+    font-size: 12px;
+    min-height: 48px;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  .hbt {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .addheadermain a {
+    font-size: 16px;
+    width: 64px;
+  }
+
+  .addheadermain {
+    padding-left: 32px;
+  }
+
+  .text{
+    width:100px;
+  }
+
+  #logo{
+    width:100px;
+    font-size: 16px;
+  }
+
+  .sec-btn h3 {
+    font-size: 16px;
+  }
+
+  .sec-btn{
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .container {
+    padding:24px;
+  }
+
+  .update{
+    width:160px;
+    height: 120px;
+  }
+
+  .update-text {
+    width:160px;
+    font-size: 10px;
+  }
+
+  .detail-books {
+    width: 240px;
+  }
+
+  .detail-img img{
+    height: 240px;
+    width: 160px;
+  }
+
+  .detail-books .title{
+    font-size: 18px;
+  }
+
+  .detail-books .author{
+    font-size: 16px;
+  }
+
+  .c {
+    font-size: 18px;
+  }
+
+  .detail-books .cont{
+    font-size: 12px;
+  }
+
+  .addheader .text{
+    font-size: 16px;
+    width: 160px;
+  }
+}
+
+@media (max-width: 440px) {
+  .heading-1 {
+    font-size: 18px;
+    line-height: 48px;
+    border-bottom: solid 2px #dbd8e3;
+    padding: 0 16px 0 16px;
+    margin-bottom: 16px;
+    word-spacing: 10px;
+  }
+
+  .subheading {
+    font-size: 8px;
+    margin-bottom: 16px;
+    word-spacing: 1px;
+    line-height: 24px;
+  }
+
+  .bt-large {
+    display: none;
+  }
+
+  #small-screen-btn {
+    display: block;
+  }
+
+  .account-btn {
+    gap: 16px;
+  }
+
+  .hbt {
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  .footer{
+    font-size: 12px;
+  }
+
+  .detail-books {
+    width: 160px;
+  }
+
+  .detail-img {
+    padding-left: 24px;
+  }
+
+  .detail-books .title{
+    font-size: 12px;
+  }
+
+  .detail-books .author{
+    font-size: 10px;
+  }
+
+  .c {
+    font-size: 10px;
+  }
+
+  .detail-books .cont{
+    font-size: 10px;
+  }
+
+  .delete-btn {
+    font-size: 12px;
+    padding: 8px;
+    height: 50px;
+    width: 100px;
+  }
+
+  .edit-btn {
+    font-size: 12px;
+    padding: 8px;
+    height: 50px;
+    width: 100px;
+  }
+
+  .update-btn {
+    font-size: 8px;
+    padding: 8px;
+    height: 50px;
+    width: 100px;
+  }
+
+}
+
+@media (max-width: 415px) {
+  .update{
+    width:120px;
+    height: 48px;
+  }
+
+  .update-text {
+    width:120px;
+    font-size: 48px;
+    font-size: 8px;
+  }
+
+  .add-contents {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
 }
