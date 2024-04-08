@@ -65,11 +65,13 @@
 </div>
 
 <script>
-  document.getElementById('searchForm').addEventListener('submit', function(event) {
+  document.getElementById('bookForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Hide the search section
     document.getElementById('searchSection').style.display = 'none';
+
+    document.getElementById('bookDetailsSection').style.display = 'block';
   });
 </script>
 <%- include("partials/footer.ejs") -%>
