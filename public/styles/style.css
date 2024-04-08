@@ -990,6 +990,14 @@ label {
     font-size: 10px;
   }
 
+  .row {
+    gap: 32px;
+  }
+
+  .act {
+    align-items: center;
+  }
+
 }
 
 @media (max-width: 670px) {
