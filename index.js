@@ -73,6 +73,7 @@ app.use(
     store: new PgSession({
       pool: db,
       tableName: "session", 
+      createTableIfMissing: true, 
     }),
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -428,9 +429,9 @@ passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 export default app;
 export const handler = serverless(app);
