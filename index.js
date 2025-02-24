@@ -11,6 +11,7 @@ import serverless from "serverless-http";
 import connectPgSimple from "connect-pg-simple";
 
 const app = express();
+app.set("views", "views"); // Set the views directory
 app.set('view engine', 'ejs'); // Set EJS as the template engine
 const port = 3000;
 const saltRounds = 10;
