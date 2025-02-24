@@ -8,6 +8,7 @@ import GoogleStrategy from "passport-google-oauth2";
 import session from "express-session";
 import env from "dotenv";
 import serverless from "serverless-http";
+import pgSession from "connect-pg-simple";
 
 const app = express();
 const port = 3000;
@@ -67,6 +68,10 @@ const url = "https://openlibrary.org/search.json";
 
 app.use(
   session({
+    store: new pgSession({
+      pool: db,
+      tableName: "session", 
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -425,5 +430,6 @@ passport.deserializeUser((user, cb) => {
 //   console.log(`Server is running on port ${port}`);
 // });
 
-module.exports = app;
-module.exports.handler = serverless(app);
+export default app;
+export const handler = serverless(app);
+
