@@ -24,7 +24,43 @@ const db = new Pool({
   },
 });
 
+async function initializeDB() {
+  try {
+      await db.query(`
+          CREATE TABLE IF NOT EXISTS users (
+              id SERIAL PRIMARY KEY,
+              email VARCHAR(255) UNIQUE NOT NULL,
+              password TEXT NOT NULL
+          );
+      `);
+      
+      await db.query(`
+          CREATE TABLE IF NOT EXISTS book (
+              id SERIAL PRIMARY KEY,
+              bookname VARCHAR(255) NOT NULL,
+              author VARCHAR(255),
+              coverid VARCHAR(255),
+              email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE
+          );
+      `);
+
+      await db.query(`
+          CREATE TABLE IF NOT EXISTS book_review (
+              id SERIAL PRIMARY KEY,
+              book_id INT REFERENCES book(id) ON DELETE CASCADE,
+              review TEXT NOT NULL
+          );
+      `);
+
+      // console.log("Database initialized successfully.");
+  } catch (err) {
+      console.error("Error initializing database:", err);
+  }
+}
+
+
 db.connect();
+initializeDB();
 
 const url = "https://openlibrary.org/search.json";
 
