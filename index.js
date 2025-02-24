@@ -8,7 +8,7 @@ import GoogleStrategy from "passport-google-oauth2";
 import session from "express-session";
 import env from "dotenv";
 import serverless from "serverless-http";
-import pgSession from "connect-pg-simple";
+import connectPgSimple from "connect-pg-simple";
 
 const app = express();
 const port = 3000;
@@ -66,9 +66,11 @@ initializeDB();
 
 const url = "https://openlibrary.org/search.json";
 
+const PgSession = connectPgSimple(session);
+
 app.use(
   session({
-    store: new pgSession({
+    store: new PgSession({
       pool: db,
       tableName: "session", 
     }),
